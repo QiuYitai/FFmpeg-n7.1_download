@@ -2291,14 +2291,12 @@ av_cold int ff_vaapi_encode_close(AVCodecContext *avctx)
     ff_refstruct_pool_uninit(&ctx->output_buffer_pool);
 
     if (ctx->va_context != VA_INVALID_ID) {
-        if (ctx->hwctx)
-            vaDestroyContext(ctx->hwctx->display, ctx->va_context);
+        vaDestroyContext(ctx->hwctx->display, ctx->va_context);
         ctx->va_context = VA_INVALID_ID;
     }
 
     if (ctx->va_config != VA_INVALID_ID) {
-        if (ctx->hwctx)
-            vaDestroyConfig(ctx->hwctx->display, ctx->va_config);
+        vaDestroyConfig(ctx->hwctx->display, ctx->va_config);
         ctx->va_config = VA_INVALID_ID;
     }
 
