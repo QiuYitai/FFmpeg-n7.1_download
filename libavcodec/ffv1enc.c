@@ -1040,9 +1040,9 @@ static int encode_slice(AVCodecContext *c, void *arg)
     int ret;
     RangeCoder c_bak = sc->c;
     const uint8_t *planes[4] = {p->data[0] + ps*x + y*p->linesize[0],
-                                p->data[1] ? p->data[1] + ps*x + y*p->linesize[1] : NULL,
-                                p->data[2] ? p->data[2] + ps*x + y*p->linesize[2] : NULL,
-                                p->data[3] ? p->data[3] + ps*x + y*p->linesize[3] : NULL};
+                                p->data[1] + ps*x + y*p->linesize[1],
+                                p->data[2] + ps*x + y*p->linesize[2],
+                                p->data[3] + ps*x + y*p->linesize[3]};
 
     sc->slice_coding_mode = 0;
     if (f->version > 3) {
