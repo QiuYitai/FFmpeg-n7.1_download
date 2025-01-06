@@ -356,8 +356,6 @@ static int segment_end(AVFormatContext *s, int write_trailer, int is_last)
     int i;
     int err;
 
-    if (!oc || !oc->pb)
-        return AVERROR(EINVAL);
 
     av_write_frame(oc, NULL); /* Flush any buffered data (fragmented mp4) */
     if (write_trailer)
