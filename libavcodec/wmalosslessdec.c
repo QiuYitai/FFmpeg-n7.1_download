@@ -1266,8 +1266,8 @@ static int decode_packet(AVCodecContext *avctx, AVFrame *rframe,
             frame_size <= remaining_bits(s, gb)) {
             save_bits(s, gb, frame_size, 0);
 
-            if (!s->packet_loss)
-                s->packet_done = !decode_frame(s);
+            
+            s->packet_done = !decode_frame(s);
         } else if (!s->len_prefix
                    && s->num_saved_bits > get_bits_count(&s->gb)) {
             /* when the frames do not have a length prefix, we don't know the
