@@ -1391,8 +1391,6 @@ static int webp_decode_frame(AVCodecContext *avctx, AVFrame *p,
                 ret = vp8_lossy_decode_frame(avctx, p, got_frame,
                                              avpkt->data + bytestream2_tell(&gb),
                                              chunk_size);
-                if (ret < 0)
-                    return ret;
             }
             bytestream2_skip(&gb, chunk_size);
             break;
@@ -1401,8 +1399,6 @@ static int webp_decode_frame(AVCodecContext *avctx, AVFrame *p,
                 ret = vp8_lossless_decode_frame(avctx, p, got_frame,
                                                 avpkt->data + bytestream2_tell(&gb),
                                                 chunk_size, 0);
-                if (ret < 0)
-                    return ret;
                 avctx->properties |= FF_CODEC_PROPERTY_LOSSLESS;
             }
             bytestream2_skip(&gb, chunk_size);
@@ -1417,8 +1413,6 @@ static int webp_decode_frame(AVCodecContext *avctx, AVFrame *p,
             s->width  = bytestream2_get_le24(&gb) + 1;
             s->height = bytestream2_get_le24(&gb) + 1;
             ret = av_image_check_size(s->width, s->height, 0, avctx);
-            if (ret < 0)
-                return ret;
             break;
         case MKTAG('A', 'L', 'P', 'H'): {
             int alpha_header, filter_m, compression;
@@ -1503,8 +1497,6 @@ exif_end:
             s->has_iccp = 1;
 
             ret = ff_frame_new_side_data(avctx, p, AV_FRAME_DATA_ICC_PROFILE, chunk_size, &sd);
-            if (ret < 0)
-                return ret;
 
             if (sd) {
                 bytestream2_get_buffer(&gb, sd->data, chunk_size);
