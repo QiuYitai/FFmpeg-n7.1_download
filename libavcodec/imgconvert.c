@@ -37,12 +37,11 @@ enum AVPixelFormat avcodec_find_best_pix_fmt_of_list(const enum AVPixelFormat *p
     int loss;
 
     for (i=0; pix_fmt_list[i] != AV_PIX_FMT_NONE; i++) {
-        loss = loss_ptr ? *loss_ptr : 0;
+        loss = *loss_ptr;
         best = av_find_best_pix_fmt_of_2(best, pix_fmt_list[i], src_pix_fmt, has_alpha, &loss);
     }
 
-    if (loss_ptr)
-        *loss_ptr = loss;
+    *loss_ptr = loss;
     return best;
 }
 
